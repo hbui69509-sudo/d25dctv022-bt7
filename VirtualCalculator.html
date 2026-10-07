@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// 1. Component Display: Chỉ chịu trách nhiệm hiển thị kết quả
 function Display({ expression }) {
   return (
     <div style={{ backgroundColor: "#e0e0e0", padding: "20px", textAlign: "right", fontSize: "24px", minHeight: "30px" }}>
@@ -8,8 +7,6 @@ function Display({ expression }) {
     </div>
   );
 }
-
-// 2. Component Button: Nhận props nhãn, màu và hàm xử lý click
 function Button({ label, color, onClick }) {
   return (
     <button
@@ -20,12 +17,8 @@ function Button({ label, color, onClick }) {
     </button>
   );
 }
-
-// 3. Component Chính: Quản lý State và Logic
 export default function VirtualCalculator() {
   const [expression, setExpression] = useState("");
-
-  // Logic xử lý khi bấm nút
   const handleButtonClick = (value) => {
     if (value === "Clear") {
       setExpression("");
@@ -33,7 +26,6 @@ export default function VirtualCalculator() {
       setExpression(expression.slice(0, -1));
     } else if (value === "=") {
       try {
-        // Dùng eval() cơ bản cho bài tập tính toán chuỗi (cần cẩn thận trong thực tế)
         const result = eval(expression);
         setExpression(String(result));
       } catch (error) {
@@ -43,8 +35,6 @@ export default function VirtualCalculator() {
       setExpression(expression + value);
     }
   };
-
-  // Dữ liệu các nút bấm đưa vào mảng để code gọn gàng, dễ bảo trì
   const buttons = [
     { id: "c", label: "Clear", color: "#4CAF50" },
     { id: "del", label: "Delete", color: "#4CAF50" },
@@ -69,7 +59,6 @@ export default function VirtualCalculator() {
   return (
     <div style={{ width: "300px", margin: "20px auto", border: "1px solid #ccc" }}>
       <Display expression={expression} />
-      {/* Grid Layout cho bàn phím */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
         {buttons.map((btn) => (
           <Button 
